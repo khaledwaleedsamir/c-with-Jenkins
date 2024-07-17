@@ -30,7 +30,7 @@ pipeline {
                 script {
                     try {
                         // Run the Python script to check for runtime errors
-                        sh 'python3 main.py'
+                        bat 'python3 main.py'
                         
                         currentBuild.result = 'SUCCESS'
                     } catch (Exception e) {
