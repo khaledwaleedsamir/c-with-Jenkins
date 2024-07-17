@@ -52,8 +52,7 @@ pipeline {
             steps {
                 script {
                     emailext body: """
-                        User: ${GIT_COMMITTER_NAME} has committed to 
-                        Branch: ${GIT_BRANCH} 
+                        User: ${GIT_COMMITTER_NAME} has committed to Branch: ${GIT_BRANCH} 
                         Build Status: ${currentBuild.currentResult}
                     """,
                     subject: 'Build Notification',
