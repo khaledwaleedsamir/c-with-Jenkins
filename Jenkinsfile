@@ -47,7 +47,7 @@ pipeline {
                         Build Status: ${currentBuild.currentResult}
                     """,
                     subject: 'Build Notification',
-                    to: 'yousef.elsawy2003@gmail.com, yousefsawy5@gmail.com, gn3li2002@gmail.com'
+                    to: 'khaledwaleed42069@gmail.com'
                 }
             }
         }
