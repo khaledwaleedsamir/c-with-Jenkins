@@ -7,28 +7,30 @@ pipeline {
     }
 
     stages {
-        stage('Setup') {
+        stage('Checkout') {
             steps {
+                // Check out the code from the Git repository
+                checkout scm
+
                 script {
-                    GIT_COMMITTER_NAME = bat(script: 'git log -1 --pretty=format:"%%cn"', returnStdout: true).trim()
-                    GIT_BRANCH = bat(script: 'git rev-parse --abbrev-ref HEAD', returnStdout: true).trim()
+                    GIT_COMMITTER_NAME = sh(script: 'git log -1 --pretty=format:"%cn"', returnStdout: true).trim()
+                    GIT_BRANCH = sh(script: 'git rev-parse --abbrev-ref HEAD', returnStdout: true).trim()
                 }
             }
         }
-        stage('helloo') {
+        
+        stage('hello') {
             steps {
                 echo "Hello World"
             }
         }
-        stage('Build C Program') {
+        
+        stage('Run Python Script') {
             steps {
                 script {
                     try {
-                        // Compile the C program
-                        bat 'gcc -o main main.c'
-                        
-                        // Run the compiled program to check for runtime errors
-                        bat '.\\main'
+                        // Run the Python script to check for runtime errors
+                        sh 'python3 main.py'
                         
                         currentBuild.result = 'SUCCESS'
                     } catch (Exception e) {
@@ -38,6 +40,7 @@ pipeline {
                 }
             }
         }
+        
         stage('Email') {
             steps {
                 script {
