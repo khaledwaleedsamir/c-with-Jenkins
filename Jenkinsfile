@@ -11,14 +11,22 @@ pipeline {
         stage('Setup') {
             steps {
                 script {
-                    GIT_COMMITTER_NAME = bat(script: 'git log -1 --pretty=format:"%%cn"', returnStdout: true).trim()
-                    GIT_BRANCH = bat(script: 'git rev-parse --abbrev-ref HEAD', returnStdout: true).trim()
+                    GIT_COMMITTER_NAME = '' // Initialize variable for git committer name
+                    GIT_BRANCH = '' // Initialize variable for git branch
                 }
             }
         }
         stage('hello') {
             steps {
-                echo "Hello World"
+                // Check out the code from the git repo
+                checkout scm
+                script {
+                    // Retrive the latest committer name
+                    GIT_COMMITTER_NAME = bat(script: 'git log -1 --pretty=format:"%cn"', returnStdout: true).split('\r\n')[1].trim()
+                    // Retrive the current branch name
+                    GIT_BRANCH = bat(script: 'git rev-parse --abbrev-ref HEAD', returnStdout: true).split('\r\n')[1].trim()
+                }
+                echo "Hello from Jenkins!"
             }
         }
         stage('Build C Program') {
