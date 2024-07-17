@@ -21,7 +21,7 @@ pipeline {
                 checkout scm
                 script {
                     // Retrieve the latest committer name and current branch name
-                    bat script: 'git log -1 --pretty=format:"%cn" > committer.txt'
+                    bat script: 'git log -1 --pretty=format:"%%cn" > committer.txt'
                     bat script: 'git rev-parse --abbrev-ref HEAD > branch.txt'
 
                     GIT_COMMITTER_NAME = readFile('committer.txt').trim()
