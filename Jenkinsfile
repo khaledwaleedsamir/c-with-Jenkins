@@ -48,6 +48,19 @@ pipeline {
                 }
             }
         }
+        stage('Build Python'){
+            steps{
+                script{
+                    try {
+                        sh 'python main.py'
+                        currentBuild.result = 'SUCCESS'
+                    } catch (Exception e){
+                        currentBuild.result = 'FAILURE'
+                        error "Build failed: ${e.message}"
+                    }
+                }
+            }
+        }
         stage('Email') {
             steps {
                 script {
