@@ -4,3 +4,5 @@ y = 3
 def addition(x,y):
     z = x+y
     print(z)
+
+addition(x,y)
