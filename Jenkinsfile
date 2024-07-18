@@ -52,7 +52,7 @@ pipeline {
             steps{
                 script{
                     try {
-                        sh 'python main.py'
+                        bat 'python main.py'
                         currentBuild.result = 'SUCCESS'
                     } catch (Exception e){
                         currentBuild.result = 'FAILURE'
